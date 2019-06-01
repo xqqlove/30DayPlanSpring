@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:P="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--抽象bean不能被IOC容器实例化 只能用来被继承-->
+
+    <bean id="address"  P:city="BeiJin" P:street="Wudaokou" abstract="true"></bean>
+    <!--bean的配置继承，使用bean的parent属性继承哪个bean的配置-->
+    <!--父bean可以作为一个配置模板也可以作为实例化被继承-->
+    <bean id="address2" class="com.qq30springAutowire.Address" parent="address" P:street="DaZhongSi"></bean>
+
+    <bean id="person" class="com.qq30springAutowire.Person" P:name="TomTom" P:address-ref="address2"></bean>
+
+    <bean id="car" class="com.qq30springAutowire.Car" P:brand="golf" P:price="50000"></bean>
+
+    <bean id="person1" class="com.qq30springAutowire.Person" P:name="LILEI" P:address-ref="address2" depends-on="car"></bean>
+
+</beans>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="car" class="com.qq30springCycle.Car"
+       init-method="init"
+    destroy-method="destroy">
+        <property name="brand" value="AUDI"></property>
+    </bean>
+    <!--实现BeanPostProcessor接口，并具体提供-->
+    <!--public Object postProcessBeforeInitialization(Object o, String s)-->
+    <!--public Object postProcessAfterInitialization(Object o, String s)-->
+    <!--的实现，返回值是返给用户的bean-->
+    <!--配置bean'的后置处理器-->
+    <bean class="com.qq30springCycle.MyBeanPostProcessor"></bean>
+</beans>

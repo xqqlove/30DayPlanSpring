@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       <!--xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">-->
+    <!--通过factorybean来配置bean的实例-->
+    <!--class：指向FactoryBean 的全类名-->
+    <!--property：配置factorybean的属性-->
+    <!--实际返回的实例确实为FactoryBean的getObject（）方法返回的实例-->
+    <bean id="car" class="com.qq30springFactoryBean.CarFactoryBean"></bean>
+</beans>

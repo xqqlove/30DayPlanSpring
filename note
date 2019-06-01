@@ -1,4 +1,4 @@
-配置bean         2019/6/1   spring 属性配置细节
+配置bean         2019/6/1
 
 ---配置形式 ：基于xml文件的方式 ； 基于注解的方式
 --bean的配置方式 ：通过全类名（反射） ，通过工厂方法（静态工厂方法 实例工厂方法），FactoryBean
@@ -8,13 +8,43 @@
 spring支持三种依赖注入的方式
    -属性注入
    - 构造器注入
-   -工厂方法注入（很少用）
+   -工厂方法注入（很少用)
 
-
+ spring 属性配置细节
 
 XML配置里的bean的自动装配
 需要在<bean>的autowire属性里指定自动装配的模式
  byType（根据类型自动装配）
  byName（根据名称自动装配）
  constructor（通过构造器自动装配）
+
+ bean之间的关系：继承：依赖
+
+bean的作用域：singleton;prototype;WEB 环境作用域
+
+使用外部属性文件
+
+SpEL表达式语言 #{...}
+SpEL为bean的属性进行动态赋值提供了便利
+
+Spring IOC容器可以管理Bean的生命周期（设置init-method和destroy-method）
+   ---通过构造器或者工厂方法创建bean实例
+   ---为bean的属性设置值和对其他bean的引用
+   ---调用bean的初始化方法
+   ---bean就可以使用了
+   ---当容器关闭时调用bean的销毁方法
+
+添加bean的后置处理器后bean的生命周期
+ ---通过构造器或者工厂方法创建bean实例
+   ---为bean的属性设置值和对其他bean的引用
+   ---bean的实例化传给bean的后置处理器
+     postProcessBeforeInitialization（）
+   ---调用bean的初始化方法
+   ---将bean的实例传递给bean的后置处理器
+      postProcessAfterInitialization（）
+   ---bean就可以使用了
+   ---当容器关闭时调用bean的销毁方法
+
+通过工厂方法配置bean（静态工厂方法和实例工厂方法）
+
 
