@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:P="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="address" class="com.qq30springAutowire.Address" P:city="beijin" P:street="HUilongGUan"></bean>
+    <bean id="car" class="com.qq30springAutowire.Car" P:brand="ford520" P:price="5200000"></bean>
+    <!--可以使用autowire属性指定自动装配方式 byName根据bean的名字和当前bean的setter分隔的属性名进行自动装配
+    若有匹配的则进行自动装配 若没有匹配的则不装配
+    byType 更具类型装配-->
+    <bean id="person" class="com.qq30springAutowire.Person" P:name="Tom" autowire="byType"></bean>
+</beans>
