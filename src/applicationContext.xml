@@ -1,8 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:P="http://www.springframework.org/schema/p" xmlns:p="http://www.springframework.org/schema/c"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
-    <bean id="helloworld" class="com.qq30Spring.HelloWorld">
-        <property name="name" value="spring"></property>
+    <!---
+     配置bean:bean的全类名，通过反射的方式在IOC容器中创建bean，所以需要bean的无参构造器
+     id： 标志容器中的bean id唯一
+    -->
+    <!--通过构造方法配置bean的属性-->
+    <bean id="car" class="com.qq30Spring.Car">
+        <constructor-arg value="AUdi" index="0"></constructor-arg>
+        <constructor-arg value="shanghai" index="1"></constructor-arg>
+        <constructor-arg value="3000" index="2"></constructor-arg>
     </bean>
+    <!--使用构造器注入属性值可以指定参数的位置和参数的类型 1以区分重载构造器-->
+    <!--如果字面值包含特殊字符可以使用<![CDATA]>包裹起来-->
+    <!--属性值还可以使用value子节点进行配置-->
+    <bean id="car2" class="com.qq30Spring.Car">
+        <constructor-arg value="Baoma" type="java.lang.String"></constructor-arg>
+        <constructor-arg type="java.lang.String">
+            <value>
+                <![CDATA[<SHanghai***>]]>
+            </value>
+        </constructor-arg>
+        <constructor-arg value="240" type="double"></constructor-arg>
+    </bean>
+    <bean id="helloworld" class="com.qq30Spring.HelloWorld">
+        <property name="name">
+            <value>"hahahahah"</value>
+        </property>
+    </bean>
+    <!--有引用类型的属性的配置-->
+    <bean id="person" class="com.qq30Spring.Person">
+        <property name="name" value="Tom"></property>
+        <property name="age" value="24"></property>
+        <!--可以使用property的ref属性建立bean之间的引用关系-->
+        <!--<property name="car" ref="car2"></property>-->
+        <!--<property name="car">-->
+            <!--<ref bean="car2"/>-->
+        <!--</property>-->
+
+        <!--内部bean-->
+        <property name="car" >
+            <bean class="com.qq30Spring.Car">
+                <constructor-arg name="brand" value="Ford1"></constructor-arg>
+                <constructor-arg name="corp" value="chaam"></constructor-arg>
+                <constructor-arg name="maxSpeed" value="91919"></constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    <bean id="person2" class="com.qq30Spring.Person">
+        <constructor-arg value="ahklahskd"></constructor-arg>
+        <constructor-arg value="23"></constructor-arg>
+        <!--<constructor-arg ref="car2"></constructor-arg>-->
+        <!--<constructor-arg><null/></constructor-arg>-->
+        <constructor-arg ref="car2"></constructor-arg>
+    </bean>
+
+    <bean name="car4" class="com.qq30SpringCollections.Car">
+        <constructor-arg name="brand" value="lanbojini"></constructor-arg>
+        <constructor-arg name="corp" value="dazhong"></constructor-arg>
+        <constructor-arg name="maxSpeed" value="1221213"></constructor-arg>
+    </bean>
+    <bean name="car5" class="com.qq30SpringCollections.Car">
+        <constructor-arg name="brand" value="niyade"></constructor-arg>
+        <constructor-arg name="corp" value="hongqi"></constructor-arg>
+        <constructor-arg name="maxSpeed" value="5464"></constructor-arg>
+    </bean>
+    <!--测试如何配置集合属性-->
+    <!--spring可以用内置的xml标签 （<list><set><map>）来配置集合属性-->
+    <bean id="person3" class="com.qq30SpringCollections.Person">
+        <property name="name" value="qiangqiangxia"></property>
+        <property name="age" value="26"></property>
+        <property name="cars">
+            <list>
+                <ref bean="car4"/>
+                <ref bean="car4"/>
+                <bean class="com.qq30SpringCollections.Car">
+                    <constructor-arg value="Fordss"></constructor-arg>
+                    <constructor-arg value="changan"></constructor-arg>
+                    <constructor-arg value="3000"></constructor-arg>
+                </bean>
+            </list>
+        </property>
+
+    </bean>
+
+    <!--配置map属性值-->
+    <bean id="newPerson" class="com.qq30SpringCollections.NewPerson">
+        <property name="name" value="nidaye"></property>
+        <property name="age" value="3242"></property>
+        <property name="cars">
+            <map>
+                <entry key="aa" value-ref="car4"></entry>
+                <entry key="ab" value-ref="car5"></entry>
+            </map>
+        </property>
+    </bean>
+   <!--Properties类为Map<k,v>d的实现类-->
+    <bean id="dataSource" class="com.qq30SpringCollections.DataSource">
+        <property name="properties">
+            <props>
+                <prop key="user">root</prop>
+                <prop key="passworld">1234</prop>
+                <prop key="jdbcUrl">jdbc:mysql:///test</prop>
+                <prop key="user">com.mysql.jdbc.Driver</prop>
+            </props>
+        </property>
+    </bean>
+    <!--配置单例的集合bean ，以供多个bean进行引用-->
+    <util:list id="cars">
+       <ref bean="car4"/>
+        <ref bean="car5" />
+    </util:list>
+    <bean id="person5" class="com.qq30SpringCollections.Person">
+        <property name="name" value="hahhahahaha"></property>
+        <property name="age" value="29"></property>
+        <property name="cars" ref="cars"></property>
+    </bean>
+
+    <!--<bean id="person6" class="com.qq30SpringCollections.Person" P:name="Queen" P:age="30" p:cars-ref="cars"></bean>-->
 </beans>
