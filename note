@@ -47,4 +47,15 @@ Spring IOC容器可以管理Bean的生命周期（设置init-method和destroy-me
 
 通过工厂方法配置bean（静态工厂方法和实例工厂方法）
 
+基于注解的方式配置bean
+ --组件扫描（component scanning）
+      spring能够从classpath下自动扫描，侦测和实例化具有特定注解的组件
+ --特定组件有：
+    --@Component：基本注解，标识了一个受spring管理的组件
+    --@Respository：标识持久层组件
+    --@Service：标识服务层（业务层）组件
+    --@Controllor：标识表现层组件
+  --对于扫描到的组件，spring有默认的命名策略：使用非限定类名，第一个字母小写，也可以在注解中通过value属性值表示组件名称
 
+
+  Spring AOP
